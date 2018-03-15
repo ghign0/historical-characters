@@ -1,0 +1,12 @@
+index:
+    path: /
+    controller: App\Controller\DefaultController::homepage
+
+characters :
+    path: /characters
+    controller: App\controller\CharacterController::list
+
+
+character :
+    path: /character/{name}
+    controller: App\controller\CharacterController::detail
