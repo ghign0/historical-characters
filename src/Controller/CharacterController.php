@@ -19,6 +19,10 @@ class CharacterController extends SymfonyController
 
     public function detail($name)
     {
+        if ( !in_array($name, ['pippo','pluto','papaerino'])) {
+            return $this->redirectToRoute('404');
+        }
+
         return $this->render('mainTemplate/char-detail.html.twig', [
             'name' => $name
         ]);
