@@ -1,12 +1,16 @@
 index:
-    path: /
-    controller: App\Controller\DefaultController::homepage
+  path: /
+  controller: App\Controller\DefaultController::homepage
 
 characters :
-    path: /characters
-    controller: App\controller\CharacterController::list
+  path: /characters
+  controller: App\Controller\CharacterController::list
 
 
 character :
-    path: /character/{name}
-    controller: App\controller\CharacterController::detail
+  path: /character/{name}
+  controller: App\Controller\CharacterController::detail
+
+404 :
+  path : /404
+  controller: App\Controller\ErrorController::error404
