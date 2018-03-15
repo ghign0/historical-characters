@@ -12,14 +12,14 @@ class CharacterController extends SymfonyController
             'pluto',
             'paperino'
         ];
-        $this->render('mainTemplate/char-list.html.twig', [
-            'chers' => $chars
+        return $this->render('mainTemplate/char-list.html.twig', [
+            'chars' => $chars
         ]);
     }
 
     public function detail($name)
     {
-        $this->render('mainTemplate/char-detail.html.twig', [
+        return $this->render('mainTemplate/char-detail.html.twig', [
             'name' => $name
         ]);
     }
