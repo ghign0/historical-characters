@@ -1,9 +1,14 @@
 {
-  "name" : "test",
-  "info" : {
-    "born" : "date",
-    "die" : "date"
+  "name" : "stringName",
+  "surname" : "stringSurname",
+  "birth" : {
+      "date": "01-01-1970",
+      "city" : "cityOfBirth"
   },
-  "curiosita" : "text",
-  "storia" : "text"
+  "death" : {
+      "date": "31-12-2000",
+      "city" : "cityOfDeath"
+  },
+  "bio" : "text",
+  "summary" : "text"
 }
