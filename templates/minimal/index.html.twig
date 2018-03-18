@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends '@template/base.html.twig' %}
 
 {% block pageTitle %}historical characters - homepage{% endblock %}
 {% block h1 %}Historical Characters{% endblock %}
@@ -7,7 +7,9 @@
 {% block container %}
     <div class="row">
         <div class="col-xs-12">
-
+            {% for character in charactersList %}
+                <a href="{{path('character', {'name': character })}}">{{character}}</a> 
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
