@@ -1,1 +1,9 @@
-{}
+{
+  "name" : "test",
+  "info" : {
+    "born" : "date",
+    "die" : "date"
+  },
+  "curiosita" : "text",
+  "storia" : "text"
+}
