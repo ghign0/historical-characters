@@ -2,29 +2,36 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as SymfonyController;
+use App\Reposiotry\CharacterRepository;
 
 class CharacterController extends SymfonyController
 {
+    private $characterRepository;
+
+    public function __construct()
+    {
+        $this->characterRepository = new CharacterRepository();
+    }
+
+
     public function list()
     {
-        $chars = [
-            'pippo',
-            'pluto',
-            'paperino'
-        ];
-        return $this->render('mainTemplate/char-list.html.twig', [
+        $this->characterRepository->getCharactersList();
+        return $this->render('@template/characters/ist.html.twig', [
             'chars' => $chars
         ]);
     }
 
     public function detail($name)
     {
-        if ( !in_array($name, ['pippo','pluto','papaerino'])) {
+        if ( !in_array($name,$this->characterRepository->getCharactersList())) {
             return $this->redirectToRoute('404');
         }
 
-        return $this->render('mainTemplate/char-detail.html.twig', [
-            'name' => $name
+        $character = $this->characterRepository->getCharacterByName($name);
+
+        return $this->render('@template/characters/detail.html.twig', [
+            'character' => $character
         ]);
     }
 }

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ghign0
- * Date: 18/03/18
- * Time: 12.50
- */
 
 namespace App\Model\Entity;
 
@@ -59,5 +53,29 @@ class Character
         $this->summary = $summary;
     }
 
+    public static function createFromJson ($json)
+    {
+        $birthDate = new DateTime($json->birth->date);
+        $deathDate = new DateTime($json->death->date);
+        return new Character(
+            $json->name,
+            $json->surname,
+            $birthDate,
+            $json->birth->city,
+            $deathDate,
+            $json->death->city,
+            $json->bio,
+            $json->summary
+        );
+    }
 
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getSurname()
+    {
+        return $this->surname;
+    }
 }
