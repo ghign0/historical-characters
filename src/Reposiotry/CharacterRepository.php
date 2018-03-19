@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Reposiotry;
 
 use App\Model\Entity\Character;
@@ -16,13 +15,16 @@ class CharacterRepository
         $this->direcotryHandler = opendir(self::ROOT_DATA_DIR);
     }
 
+    /**
+     * @return array
+     */
     public function getCharactersList() : array
     {
         $lsitOfCharacters = array();
         while( false !== $characterFile = readdir($this->direcotryHandler)) {
             if(!in_array( $characterFile,['.', '..'] )) {
-                $characterName = str_replace('.json', '', $characterFile);
-                $lsitOfCharacters[] = $characterName;
+                $characterSlug= str_replace('.json', '', $characterFile);
+                $lsitOfCharacters[] = $characterSlug;
             }
         }
         return $lsitOfCharacters;
@@ -34,12 +36,25 @@ class CharacterRepository
 
     }
 
-
-    public function getCharacterByName( string $name) : Character
+    public function getCharacterByFilename( string $slug) : Character
     {
-        $characterFile = self::ROOT_DATA_DIR.'/'.$name.'.json';
+        $characterFile = self::ROOT_DATA_DIR.'/'.$slug.'.json';
         $characterRawData = json_decode(file_get_contents($characterFile));
         
         return Character::createFromJson($characterRawData);
+    }
+
+
+    public function getCharactersForHomepgae()
+    {
+        $characters = array();
+        $lsitOfCharacters = $this->getCharactersList();
+
+        foreach( $lsitOfCharacters as $characterFilename) {
+
+            $characters[] = $this->getCharacterByFilename($characterFilename);
+
+        }
+        return $characters;
     }
 }
