@@ -8,7 +8,7 @@ characters :
 
 
 character :
-  path: /character/{name}
+  path: /character/{slug}
   controller: App\Controller\CharacterController::detail
 
 404 :
