@@ -3,12 +3,16 @@
 {% block pageTitle %}historical characters - homepage{% endblock %}
 {% block h1 %}Historical Characters{% endblock %}
 
+{% block mainMenu %}
+
+{% endblock %}
 
 {% block container %}
     <div class="row">
         <div class="col-xs-12">
-            {% for character in charactersList %}
-                <a href="{{path('character', {'name': character })}}">{{character}}</a> 
+            {% for character in characters %}
+                {% embed '@template/characters/partials/card-small.html.twig' with { 'character' : character }  %}
+                {% endembed %}
             {% endfor %}
         </div>
     </div>
