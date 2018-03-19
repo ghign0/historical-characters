@@ -16,19 +16,19 @@ class CharacterController extends SymfonyController
 
     public function list()
     {
-        $this->characterRepository->getCharactersList();
+        $chars = $this->characterRepository->getCharactersList();
         return $this->render('@template/characters/ist.html.twig', [
             'chars' => $chars
         ]);
     }
 
-    public function detail($name)
+    public function detail($slug)
     {
-        if ( !in_array($name,$this->characterRepository->getCharactersList())) {
+        if ( !in_array($slug,$this->characterRepository->getCharactersList())) {
             return $this->redirectToRoute('404');
         }
 
-        $character = $this->characterRepository->getCharacterByName($name);
+        $character = $this->characterRepository->getCharacterByFilename($slug);
 
         return $this->render('@template/characters/detail.html.twig', [
             'character' => $character

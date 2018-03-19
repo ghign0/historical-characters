@@ -17,11 +17,10 @@ class DefaultController extends SymfonyController
 
     public function homepage()
     {
-        $charactersList = $this->characterRepository->getCharactersList();
+        $characters = $this->characterRepository->getCharactersForHomepgae();
 
         return $this->render('@template/index.html.twig', [
-            'name' => 'Marco',
-            'charactersList' => $charactersList
+            'characters' => $characters
         ]);
     }
 }
