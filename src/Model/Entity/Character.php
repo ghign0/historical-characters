@@ -31,6 +31,12 @@ class Character
     /** @var string  */
     private $summary;
 
+    /** @var  string */
+    private $slug;
+
+    /** @var bool  */
+    private $hompage;
+
 
     public function __construct(
         string $name,
@@ -40,7 +46,9 @@ class Character
         DateTime $dateOfDeath,
         string $cityOfDeath,
         string $bio,
-        string $summary
+        string $summary,
+        string $slug,
+        bool $homepage = false
     )
     {
         $this->name = $name;
@@ -51,6 +59,8 @@ class Character
         $this->cityOfDeath = $cityOfDeath;
         $this->bio = $bio;
         $this->summary = $summary;
+        $this->slug = $slug;
+        $this->hompage = $homepage;
     }
 
     public static function createFromJson ($json)
@@ -65,7 +75,9 @@ class Character
             $deathDate,
             $json->death->city,
             $json->bio,
-            $json->summary
+            $json->summary,
+            $json->config->slug,
+            $json->config->homepage
         );
     }
 
@@ -77,5 +89,18 @@ class Character
     public function getSurname()
     {
         return $this->surname;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    public function isForHompage() :bool
+    {
+        return false;
+        if($this->hompage) {
+            return true;
+        }
     }
 }
