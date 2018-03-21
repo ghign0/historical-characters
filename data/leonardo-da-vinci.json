@@ -1,0 +1,18 @@
+{
+  "name" : "Leonardo",
+  "surname" : "Da Vinci",
+  "birth" : {
+    "date": "1452-04-15",
+    "city" : "Anchiano, Italy"
+  },
+  "death" : {
+    "date": "1519-05-01",
+    "city" : "Ambroise, France"
+  },
+  "bio" : "this is biography of the character, where i write a plot of the story of the character",
+  "summary" : "Leonardo da Vinci è stato un ingegniere, pittore, scrittore, architetto, e soprettutto uno scienziato italiano. &Eggrave; considerato uno dei più grandi geni dell'umanità",
+  "config" : {
+    "slug" : "leonardo-da-vinci",
+    "homepage" : "true"
+  }
+}
