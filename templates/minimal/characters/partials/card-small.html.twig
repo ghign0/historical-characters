@@ -5,7 +5,7 @@
             {{character.name}} {{ character.surname }}
         </h5>
         <div class="card-text">
-            small summary of the character
+            {{ character.summary }}
         </div>
         <a class="btn btn-primary btn-flat" href="{{path('character', {'slug': character.slug })}}">vai ></a>
     </div>
