@@ -3,8 +3,9 @@ index:
   controller: App\Controller\DefaultController::homepage
 
 characters :
-  path: /characters
+  path: /characters/{param}
   controller: App\Controller\CharacterController::list
+  defaults: { param: all }
 
 
 character :
@@ -14,3 +15,7 @@ character :
 404 :
   path : /404
   controller: App\Controller\ErrorController::error404
+
+list-not-found-error :
+  path : /errors/list-not-found
+  controller : App\Controller\ErrorController::listNotFoundError

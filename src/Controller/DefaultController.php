@@ -2,22 +2,31 @@
 
 namespace App\Controller;
 
+use App\Event\SanitizeDataAfetrLoadEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as SymfonyController;
 use App\Reposiotry\CharacterRepository;
 use App\Model\Entity\Character;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class DefaultController extends SymfonyController
 {
-    private $characterRepository;
-
-    public function __construct()
+    /**
+     * carica il CharacterRepository
+     *
+     * @return CharacterRepository
+     */
+    private function getRepository() : CharacterRepository
     {
-        $this->characterRepository = new CharacterRepository();
+        $dispatcher = $this->get('event_dispatcher');
+        return  new CharacterRepository($dispatcher);
     }
+
 
     public function homepage()
     {
-        $characters = $this->characterRepository->getCharactersForHomepgae();
+        $characterRepository = $this->getRepository();
+
+        $characters = $characterRepository->getCharacters('homepage',[]);
 
         return $this->render('@template/index.html.twig', [
             'characters' => $characters

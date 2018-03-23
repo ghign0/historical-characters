@@ -91,6 +91,22 @@ class Character
         return $this->surname;
     }
 
+    /**
+     * @return string
+     */
+    public function getSummary(): string
+    {
+        return $this->summary;
+    }
+
+    /**
+     * @param string $summary
+     */
+    public function setSummary(string $summary): void
+    {
+        $this->summary = $summary;
+    }
+
     public function getSlug()
     {
         return $this->slug;
@@ -98,9 +114,9 @@ class Character
 
     public function isForHompage() :bool
     {
-        return false;
         if($this->hompage) {
             return true;
         }
+        return false;
     }
 }
