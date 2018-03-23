@@ -6,29 +6,61 @@ use App\Reposiotry\CharacterRepository;
 
 class CharacterController extends SymfonyController
 {
-    private $characterRepository;
 
-    public function __construct()
+    /**
+     * carica il CharacterRepository
+     *
+     * @return CharacterRepository
+     */
+    private function getRepository() : CharacterRepository
     {
-        $this->characterRepository = new CharacterRepository();
+        $dispatcher = $this->get('event_dispatcher');
+        return  new CharacterRepository($dispatcher);
     }
 
 
-    public function list()
+    /**
+     * @param null $param
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function list($param = null)
     {
-        $chars = $this->characterRepository->getCharactersList();
-        return $this->render('@template/characters/ist.html.twig', [
+        $map = [
+            '' => 'all',
+            'all'   => 'all',
+            'century' => 'century',
+            'year' => 'year',
+            'born-today' => 'anniversary'
+        ];
+        if(null === $param) {
+            $characterRepository = $this->getRepository();
+            $chars = $characterRepository->getCharacters('all',[]);
+            return $this->render('@template/characters/list.html.twig', [
+                'chars' => $chars
+            ]);
+        }
+        if (!in_array($param, $map)) {
+            return $this->redirectToRoute('list-not-found-error' );
+        }
+        $characterRepository = $this->getRepository();
+        $chars = $characterRepository->getCharacters($map[$param],[]);
+        return $this->render('@template/characters/list.html.twig', [
             'chars' => $chars
         ]);
     }
 
+    /**
+     * @param $slug
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function detail($slug)
     {
-        if ( !in_array($slug,$this->characterRepository->getCharactersList())) {
+        $characterRepository = $this->getRepository();
+        if ( !in_array($slug,$characterRepository->getCharactersNameList())) {
             return $this->redirectToRoute('404');
         }
 
-        $character = $this->characterRepository->getCharacterByFilename($slug);
+        $character = $characterRepository->getCharacterByFilename($slug);
 
         return $this->render('@template/characters/detail.html.twig', [
             'character' => $character
