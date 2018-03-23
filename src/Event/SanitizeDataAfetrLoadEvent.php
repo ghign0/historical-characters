@@ -7,10 +7,10 @@ use Symfony\Component\EventDispatcher\Event;
 
 
 /**
- * Class LoadCharacterEvent
+ * Class SanitizeDataAfetrLoadEvent
  *  the character.loaded is dispatched each time a json has been read
  */
-class LoadCharacterEvent extends Event
+class SanitizeDataAfetrLoadEvent extends Event
 {
 
     const NAME = 'character.loaded';
