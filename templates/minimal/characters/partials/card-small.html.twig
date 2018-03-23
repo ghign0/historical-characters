@@ -1,12 +1,14 @@
-<div class="card card-small">
-    <img class="car-img-top" src="" alt="">
-    <div class="car-body">
-        <h5 class="card-title">
-            {{character.name}} {{ character.surname }}
-        </h5>
-        <div class="card-text">
-            {{ character.summary }}
+<div class="col">
+    <div class="card card-small">
+        <img class="car-img-top" src="http://via.placeholder.com/540x150" alt="placeholder">
+        <div class="car-body">
+            <h5 class="card-title">
+                {{character.name}} {{ character.surname }}
+            </h5>
+            <div class="card-text">
+                {{ character.summary }}
+            </div>
+            <a class="btn btn-primary btn-flat" href="{{path('character', {'slug': character.slug })}}">vai ></a>
         </div>
-        <a class="btn btn-primary btn-flat" href="{{path('character', {'slug': character.slug })}}">vai ></a>
     </div>
 </div>

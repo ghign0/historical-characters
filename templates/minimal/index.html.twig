@@ -9,11 +9,11 @@
 
 {% block container %}
     <div class="row">
-        <div class="col-xs-12">
-            {% for character in characters %}
-                {% embed '@template/characters/partials/card-small.html.twig' with { 'character' : character }  %}
-                {% endembed %}
-            {% endfor %}
-        </div>
+
+        {% for character in characters %}
+            {% embed '@template/characters/partials/card-small.html.twig' with { 'character' : character }  %}
+            {% endembed %}
+        {% endfor %}
     </div>
+
 {% endblock %}
