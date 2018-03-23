@@ -99,6 +99,14 @@ class Character
         return $this->summary;
     }
 
+    /**
+     * @param string $summary
+     */
+    public function setSummary(string $summary): void
+    {
+        $this->summary = $summary;
+    }
+
     public function getSlug()
     {
         return $this->slug;
