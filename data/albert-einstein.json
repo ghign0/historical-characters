@@ -1,0 +1,18 @@
+{
+  "name" : "Albet",
+  "surname" : "Einstein",
+  "birth" : {
+    "date": "01-01-1970",
+    "city" : "cityOfBirth"
+  },
+  "death" : {
+    "date": "31-12-2000",
+    "city" : "cityOfDeath"
+  },
+  "bio" : "this is biography of the character, where i write a plot of the story of the character",
+  "summary" : "this is summary of character, where i write only things he's rembered for",
+  "config" : {
+    "slug" : "albert-einstein",
+    "homepage" : "true"
+  }
+}
