@@ -11,6 +11,12 @@
   },
   "bio" : "this is biography of the character, where i write a plot of the story of the character",
   "summary" : "Leonardo da Vinci è stato un ingegniere, pittore, scrittore, architetto, e soprettutto uno scienziato italiano. &Egrave; considerato uno dei più grandi geni dell'umanità",
+  "options" : {
+    "categories" : [
+      "scienza",
+      "arte"
+    ]
+  },
   "config" : {
     "slug" : "leonardo-da-vinci",
     "homepage" : "true"
