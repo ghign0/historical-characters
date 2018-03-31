@@ -1,13 +1,50 @@
 {% extends '@template/base.html.twig' %}
 
 {% block pageTitle %}historical characters - homepage{% endblock %}
-{% block h1 %}Historical Characters{% endblock %}
+{% block h1 %}Personaggi della storia{% endblock %}
 
 {% block mainMenu %}
-
+{{ parent() }}
 {% endblock %}
 
+
 {% block container %}
+    <div class="row">
+        <div class="col">
+            Tutti noi conosciamo i maggiori personaggi della sotria come Leonardo da Vinci, Michelangelo, Alessando Magno o Napoleaone.
+            Ma nel corso della storia dell'umanità altri personaaggi hanno compiuto le cui gesta, opere, pensieri, sarebbero bastati a consegnali all'eterna memoria, al pari dei primi, ma che,
+            per un motivo o perr un altro, nessuno ricorda.
+            <br>
+            Ecco, qui li troverete!
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3 col-sm-12">
+            {% embed '@template/partials/widget.html.twig' %}
+                {% block widgetTitle %}Personaggio del giorno{% endblock %}
+                {% block widgetBody %}Qui mettiamo un personaggio a caso del giorno{% endblock %}
+            {% endembed %}
+        </div>
+
+        <div class="col-md-3 col-sm-12">
+            {% embed '@template/partials/widget.html.twig' %}
+                {% block widgetTitle %}Vedi tutte le categorie{% endblock %}
+                {% block widgetBody %}
+                    <ul>
+                    {% for category in categories %}
+                        <li>{{ category }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endblock %}
+            {% endembed %}
+        </div>
+
+
+
+    </div>
+
     <div class="row">
 
         {% for character in characters %}
