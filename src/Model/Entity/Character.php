@@ -34,6 +34,9 @@ class Character
     /** @var  string */
     private $slug;
 
+    /** @var array */
+    private $categories;
+
     /** @var bool  */
     private $hompage;
 
@@ -48,6 +51,7 @@ class Character
         string $bio,
         string $summary,
         string $slug,
+        array $categories,
         bool $homepage = false
     )
     {
@@ -60,6 +64,7 @@ class Character
         $this->bio = $bio;
         $this->summary = $summary;
         $this->slug = $slug;
+        $this->categories = $categories;
         $this->hompage = $homepage;
     }
 
@@ -77,9 +82,23 @@ class Character
             $json->bio,
             $json->summary,
             $json->config->slug,
+            $json->options->categories,
             $json->config->homepage
         );
     }
+
+    public function getCentury()
+    {
+        $yearOfBirth = $this->dateOfBirth->format('YYYY');
+        $century = (int)substr($yearOfBirth,0,-2)+1;
+        return $century;
+    }
+
+    public function getYearOfBirth()
+    {
+        return $this->dateOfBirth->format('YYYY');
+    }
+
 
     public function getName()
     {
@@ -110,6 +129,14 @@ class Character
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCategories(): array
+    {
+        return $this->categories;
     }
 
     public function isForHompage() :bool
