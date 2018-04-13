@@ -33,14 +33,14 @@ class CharacterRepository
      */
     public function getCharactersNameList() : array
     {
-        $lsitOfCharacters = array();
+        $listOfCharacters = array();
         while( false !== $characterFile = readdir($this->direcotryHandler)) {
-            if(!in_array( $characterFile,['.', '..'] )) {
+            if(!in_array( $characterFile,[ '.', '..', 'character.json.dist' ] )) {
                 $characterSlug= str_replace('.json', '', $characterFile);
-                $lsitOfCharacters[] = $characterSlug;
+                $listOfCharacters[] = $characterSlug;
             }
         }
-        return $lsitOfCharacters;
+        return $listOfCharacters ;
     }
 
 
@@ -49,7 +49,7 @@ class CharacterRepository
         $directoryHandler = opendir(self::ROOT_DATA_DIR);
         $lsitOfCharacters = array();
         while( false !== $characterFile = readdir($directoryHandler)) {
-            if(!in_array( $characterFile,['.', '..'] )) {
+            if(!in_array( $characterFile,[ '.', '..', 'character.json.dist' ] )) {
                 $characterSlug= str_replace('.json', '', $characterFile);
                 $lsitOfCharacters[] = $characterSlug;
             }
