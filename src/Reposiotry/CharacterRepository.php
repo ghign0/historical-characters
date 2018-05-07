@@ -95,6 +95,9 @@ class CharacterRepository
             case 'alphabetic':
                 $characters = $this->getCharactersByAlphabet($listOfCharacters, $parameters['letter']);
                 break;
+            case 'category' :
+                $characters = $this->getCharactersByCategory($listOfCharacters, $parameters['category']);
+                break;
 
             default:
                 $characters = $this->getAllCharacters($listOfCharacters);
