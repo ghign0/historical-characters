@@ -3,10 +3,11 @@
 namespace App\Reposiotry;
 
 use App\Event\SanitizeDataAfetrLoadEvent;
-use App\Exception\EmptyListExcpetion;
 use App\Model\Entity\Character;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
+use App\Service\Sanitizer;
+
+
 class CharacterRepository
 {
     const ROOT_DATA_DIR = __DIR__.'/../../data';
@@ -32,9 +33,23 @@ class CharacterRepository
      */
     public function getCharactersNameList() : array
     {
-        $lsitOfCharacters = array();
+        $listOfCharacters = array();
         while( false !== $characterFile = readdir($this->direcotryHandler)) {
-            if(!in_array( $characterFile,['.', '..'] )) {
+            if(!in_array( $characterFile,[ '.', '..', 'character.json.dist' ] )) {
+                $characterSlug= str_replace('.json', '', $characterFile);
+                $listOfCharacters[] = $characterSlug;
+            }
+        }
+        return $listOfCharacters ;
+    }
+
+
+    public static function GetCharsList()
+    {
+        $directoryHandler = opendir(self::ROOT_DATA_DIR);
+        $lsitOfCharacters = array();
+        while( false !== $characterFile = readdir($directoryHandler)) {
+            if(!in_array( $characterFile,[ '.', '..', 'character.json.dist' ] )) {
                 $characterSlug= str_replace('.json', '', $characterFile);
                 $lsitOfCharacters[] = $characterSlug;
             }
@@ -77,6 +92,13 @@ class CharacterRepository
                 $characters = $this->getRandomCharacters( $listOfCharacters, $parameters['random-number'] );
                 break;
 
+            case 'alphabetic':
+                $characters = $this->getCharactersByAlphabet($listOfCharacters, $parameters['letter']);
+                break;
+            case 'category' :
+                $characters = $this->getCharactersByCategory($listOfCharacters, $parameters['category']);
+                break;
+
             default:
                 $characters = $this->getAllCharacters($listOfCharacters);
         }
@@ -97,9 +119,10 @@ class CharacterRepository
         $characterRawData = json_decode(file_get_contents($characterFile));
 
         $character = Character::createFromJson($characterRawData);
+        $character->setSummary( Sanitizer::sanitizeText($character->getSummary()) );
 
         /**  Pulisce il testo   */
-        $this->dispatcher->dispatch(SanitizeDataAfetrLoadEvent::NAME , new SanitizeDataAfetrLoadEvent($character));
+        # $this->dispatcher->dispatch(SanitizeDataAfetrLoadEvent::NAME , new SanitizeDataAfetrLoadEvent($character));
 
         return $character;
     }
@@ -112,7 +135,6 @@ class CharacterRepository
      */
     private function getAllCharacters(array $listOfCharacters)  : ?array
     {
-        var_dump($listOfCharacters);
         foreach( $listOfCharacters as $characterFilename) {
             $characters[] = $this->getCharacterByFilename($characterFilename);
             }
@@ -136,8 +158,6 @@ class CharacterRepository
 
     private function getCharactersOfTheDay(array $listOfCharacters ): array
     {
-        $characters = array();
-        $listOfCharacters = $this->getCharactersNameList();
         foreach( $listOfCharacters as $characterFilename) {
             $characters[] = $this->getCharacterByFilename($characterFilename);
         }
@@ -146,8 +166,6 @@ class CharacterRepository
 
     private function getRandomCharacters( array $listOfCharacters , int $randomNumer ): array
     {
-        $characters = array();
-        $listOfCharacters = $this->getCharactersNameList();
         shuffle( $listOfCharacters);
         $listOfCharacters = array_slice($listOfCharacters, 0, $randomNumer );
 
@@ -158,18 +176,37 @@ class CharacterRepository
 
     }
 
-    private function getCharactersOfTheYear(array $listOfCharacters) : array
+    private function getCharactersByAlphabet( array $listOfCharacters, string $letter ) : array
     {
-        $characters = array();
+        foreach ( $listOfCharacters as $characterFilename) {
+            if(substr($characterFilename,0,1) === $letter) {
+                $characters[] = $this->getCharacterByFilename($characterFilename);
+            }
+            return $characters;
+        }
+
+    }
+
+    private function getCharactersOfTheYear(array $listOfCharacters, $year) : array
+    {
+        foreach ( $listOfCharacters as $characterFilename) {
+            $character = $this->getCharacterByFilename($characterFilename);
+            if($character->getYearOfBirth() === $year) {
+                $characters[] = $character ;
+            }
+        }
 
         return $characters;
     }
 
-    private function getCharactersOfTheCentury(array $listOfCharacters) : array
+    private function getCharactersOfTheCentury(array $listOfCharacters, $century) : array
     {
-        $characters = array();
-
-        return $characters;
+        foreach ( $listOfCharacters as $characterFilename) {
+            $character = $this->getCharacterByFilename($characterFilename);
+            if($character->getCentury() === $century ) {
+                $characters[] = $character ;
+            }
+        }
     }
 
 }
