@@ -1,0 +1,26 @@
+{
+    "name" : "Simo",
+    "surname" : "Haya",
+    "birth" : {
+        "date": "17-12-1905",
+        "city" : "Rautjärvi, FI"
+    },
+    "death" : {
+        "date": "01-04-2002",
+        "city" : "Hamina, FI"
+    },
+    "bio" : "",
+    "summary" : "Attivo come tiratore scelto durante la guerra d'inverno contro l'Armata Rossa, divenne famoso con l'appellativo di \"Morte Bianca\". Per questo è considerato il cecchino più letale della storia",
+    "options" : {
+        "categories" : [
+            "guerra",
+            "seconda guerra mondiale",
+            "militare",
+            "cecchino"
+        ]
+    },
+    "config" : {
+        "slug" : "simo-haya",
+        "homepage" : "true"
+    }
+}

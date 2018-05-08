@@ -1,6 +1,6 @@
 {
   "name" : "Albet",
-  "surname" : "Heinstein",
+  "surname" : "Einstein",
   "birth" : {
     "date": "01-01-1970",
     "city" : "cityOfBirth"
@@ -11,6 +11,12 @@
   },
   "bio" : "this is biography of the character, where i write a plot of the story of the character",
   "summary" : "this is summary of character, where i write only things he's rembered for",
+  "options" : {
+    "categories" : [
+      "sicenza",
+      "fisica"
+    ]
+  },
   "config" : {
     "slug" : "albert-einstein",
     "homepage" : "true"
